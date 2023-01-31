@@ -2,7 +2,7 @@ import { Child } from "./basicModels/child";
 import { Parent } from "./basicModels/parent";
 import { Weight } from "./basicModels/weights";
 
-const patients: Array<Child> = [
+export const patients: Array<Child> = [
   {
     firstName: "Joe",
     lastName: "Smith",
@@ -29,7 +29,7 @@ const patients: Array<Child> = [
   },
 ];
 
-const parents: Array<Parent> = [
+export const parents: Array<Parent> = [
   {
     firstName: "Terrill",
     lastName: "Hills",
@@ -43,8 +43,7 @@ const parents: Array<Parent> = [
   },
 ];
 
-const weights: Array<Weight> = [
+export const weights: Array<Weight> = [
   { dateOfWeight: new Date(2022, 10, 23), ageInWeeks: 45, weight: 5.5 },
   { dateOfWeight: new Date(2022, 11, 23), ageInWeeks: 55, weight: 6.5 },
 ];
-module.exports = { weights, parents, patients };
