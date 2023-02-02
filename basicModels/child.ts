@@ -1,4 +1,5 @@
 export type Person = {
+  id: String;
   firstName: String;
   lastName: String;
   dateOfBirth: Date;

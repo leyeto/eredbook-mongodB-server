@@ -2,8 +2,9 @@ import { Child } from "./basicModels/child";
 import { Parent } from "./basicModels/parent";
 import { Weight } from "./basicModels/weights";
 
-export const patients: Array<Child> = [
+export const children: Array<Child> = [
   {
+    id: "child1",
     firstName: "Joe",
     lastName: "Smith",
     dateOfBirth: new Date(2020, 11, 24),
@@ -12,6 +13,7 @@ export const patients: Array<Child> = [
     birthWeightInKg: 7.4,
   },
   {
+    id: "child2",
     firstName: "Terry",
     lastName: "Medhurst",
     dateOfBirth: new Date(2019, 3, 14),
@@ -20,6 +22,7 @@ export const patients: Array<Child> = [
     birthWeightInKg: 7.4,
   },
   {
+    id: "child3",
     firstName: "Sheldon",
     lastName: "Quigley",
     dateOfBirth: new Date(2018, 3, 4),
@@ -31,6 +34,7 @@ export const patients: Array<Child> = [
 
 export const parents: Array<Parent> = [
   {
+    id: "parent1",
     firstName: "Terrill",
     lastName: "Hills",
     dateOfBirth: new Date(1992, 12, 30),
