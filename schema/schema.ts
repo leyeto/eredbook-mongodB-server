@@ -21,10 +21,27 @@ const ChildType = new GraphQLObjectType({
     birthWeightInKg: { type: GraphQLFloat },
   }),
 });
+const WeightType = new GraphQLObjectType({
+  name: "Weight",
+  fields: () => ({
+    dateOfWeight: { type: GraphQLString },
+    ageInWeeks: { type: GraphQLFloat },
+    weight: { type: GraphQLFloat },
+    OtherMeasurementsMetric: { type: GraphQLString },
+    OtherMeasurementsMeasured: { type: GraphQLFloat },
+  }),
+});
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: {
+    getChildByNhsNumber: {
+      type: ChildType,
+      args: { nhsNumber: { type: GraphQLID } },
+      resolve(parent, args) {
+        return children.find((child) => child.nhsNumber === args.nhsNumber);
+      },
+    },
     child: {
       type: ChildType,
       args: { id: { type: GraphQLID } },
