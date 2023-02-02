@@ -3,6 +3,7 @@ import {
   GraphQLFloat,
   GraphQLID,
   GraphQLObjectType,
+  GraphQLSchema,
   GraphQLString,
 } from "graphql";
 
@@ -19,4 +20,21 @@ const ChildType = new GraphQLObjectType({
     nhsNumber: { type: GraphQLString },
     birthWeightInKg: { type: GraphQLFloat },
   }),
+});
+
+const RootQuery = new GraphQLObjectType({
+  name: "RootQueryType",
+  fields: {
+    child: {
+      type: ChildType,
+      args: { id: { type: GraphQLID } },
+      resolve(parent, args) {
+        return children.find((child) => child.id === args.id);
+      },
+    },
+  },
+});
+
+module.exports = new GraphQLSchema({
+  query: RootQuery,
 });
