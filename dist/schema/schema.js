@@ -15,6 +15,16 @@ const ChildType = new graphql_1.GraphQLObjectType({
         birthWeightInKg: { type: graphql_1.GraphQLFloat },
     }),
 });
+const WeightType = new graphql_1.GraphQLObjectType({
+    name: "Weight",
+    fields: () => ({
+        dateOfWeight: { type: graphql_1.GraphQLString },
+        ageInWeeks: { type: graphql_1.GraphQLFloat },
+        weight: { type: graphql_1.GraphQLFloat },
+        OtherMeasurementsMetric: { type: graphql_1.GraphQLString },
+        OtherMeasurementsMeasured: { type: graphql_1.GraphQLFloat },
+    }),
+});
 const RootQuery = new graphql_1.GraphQLObjectType({
     name: "RootQueryType",
     fields: {

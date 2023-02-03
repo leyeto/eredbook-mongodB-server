@@ -1,14 +1,16 @@
 import { children, parents, weights } from "../sampleData";
+const Child = require("../basicModels/child");
 import {
   GraphQLFloat,
   GraphQLID,
+  GraphQLNonNull,
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLString,
 } from "graphql";
+import { argsToArgsConfig } from "graphql/type/definition";
 
-//Patient
-
+//Child
 const ChildType = new GraphQLObjectType({
   name: "Child",
   fields: () => ({
@@ -47,6 +49,30 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return children.find((child) => child.id === args.id);
+      },
+    },
+  },
+});
+
+//Mutations
+const mutation = new GraphQLObjectType({
+  name: "Mutation",
+  fields: {
+    // Add Child
+    addChild: {
+      type: ChildType,
+      args: {
+        firstName: { type: GraphQLNonNull(GraphQLString) },
+        lastName: { type: GraphQLNonNull(GraphQLString) },
+        dateOfBirth: { type: GraphQLNonNull(GraphQLString) },
+      },
+      resolve(parent, args) {
+        const child = new Child({
+          firstName: args.firstName,
+          lastName: args.lastNmae,
+          dateOfBirth: args.dateOfBirth,
+        });
+        return child.save();
       },
     },
   },
