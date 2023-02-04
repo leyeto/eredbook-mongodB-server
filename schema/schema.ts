@@ -8,7 +8,6 @@ import {
   GraphQLSchema,
   GraphQLString,
 } from "graphql";
-import { argsToArgsConfig } from "graphql/type/definition";
 
 //Child
 const ChildType = new GraphQLObjectType({
@@ -39,6 +38,7 @@ const WeightType = new GraphQLObjectType({
   }),
 });
 
+// ClinicianType
 const ClinicianType = new GraphQLObjectType({
   name: "Clinican",
   fields: () => ({
@@ -53,8 +53,7 @@ const ClinicianType = new GraphQLObjectType({
   }),
 });
 
-// Parent
-
+// ParentType
 const ParentType = new GraphQLObjectType({
   name: "Parent",
   fields: () => ({
@@ -67,6 +66,17 @@ const ParentType = new GraphQLObjectType({
     password: { type: GraphQLString },
     email: { type: GraphQLString },
     occupation: { type: GraphQLString },
+  }),
+});
+
+// NotesType
+const NotesType = new GraphQLObjectType({
+  name: "Note",
+  fields: () => ({
+    dateOfEntry: { type: GraphQLString },
+    comment: { type: GraphQLString },
+    nameAndDesignation: { type: GraphQLString },
+    clinicanBadgeNumber: { type: GraphQLString },
   }),
 });
 
