@@ -21,6 +21,10 @@ const ChildType = new GraphQLObjectType({
     address: { type: GraphQLString },
     nhsNumber: { type: GraphQLString },
     birthWeightInKg: { type: GraphQLFloat },
+    birthHospital: { type: GraphQLString },
+    picture: { type: GraphQLString },
+    birthHeight: { type: GraphQLFloat },
+    bloodGroup: { type: GraphQLString },
   }),
 });
 const WeightType = new GraphQLObjectType({
@@ -29,8 +33,26 @@ const WeightType = new GraphQLObjectType({
     dateOfWeight: { type: GraphQLString },
     ageInWeeks: { type: GraphQLFloat },
     weight: { type: GraphQLFloat },
+    height: { type: GraphQLFloat },
     OtherMeasurementsMetric: { type: GraphQLString },
     OtherMeasurementsMeasured: { type: GraphQLFloat },
+  }),
+});
+
+// Parent
+
+const ParentType = new GraphQLObjectType({
+  name: "Parent",
+  fields: () => ({
+    firstName: { type: GraphQLString },
+    lastName: { type: GraphQLString },
+    dateOfBirth: { type: GraphQLString },
+    address: { type: GraphQLString },
+    contactNumber: { type: GraphQLString },
+    username: { type: GraphQLString },
+    password: { type: GraphQLString },
+    email: { type: GraphQLString },
+    occupation: { type: GraphQLString },
   }),
 });
 
