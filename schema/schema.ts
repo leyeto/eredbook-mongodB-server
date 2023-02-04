@@ -3,6 +3,7 @@ const Child = require("../basicModels/child");
 import {
   GraphQLFloat,
   GraphQLID,
+  GraphQLList,
   GraphQLNonNull,
   GraphQLObjectType,
   GraphQLSchema,
@@ -29,6 +30,7 @@ const ChildType = new GraphQLObjectType({
 const WeightType = new GraphQLObjectType({
   name: "Weight",
   fields: () => ({
+    weightID: { type: GraphQLID },
     dateOfWeight: { type: GraphQLString },
     ageInWeeks: { type: GraphQLFloat },
     weight: { type: GraphQLFloat },
@@ -42,6 +44,7 @@ const WeightType = new GraphQLObjectType({
 const ClinicianType = new GraphQLObjectType({
   name: "Clinican",
   fields: () => ({
+    clinicianID: { type: GraphQLID },
     firstName: { type: GraphQLString },
     lastName: { type: GraphQLString },
     username: { type: GraphQLString },
@@ -57,6 +60,7 @@ const ClinicianType = new GraphQLObjectType({
 const ParentType = new GraphQLObjectType({
   name: "Parent",
   fields: () => ({
+    parentID: { type: GraphQLID },
     firstName: { type: GraphQLString },
     lastName: { type: GraphQLString },
     dateOfBirth: { type: GraphQLString },
@@ -73,6 +77,7 @@ const ParentType = new GraphQLObjectType({
 const NotesType = new GraphQLObjectType({
   name: "Note",
   fields: () => ({
+    noteID: { type: GraphQLID },
     dateOfEntry: { type: GraphQLString },
     comment: { type: GraphQLString },
     nameAndDesignation: { type: GraphQLString },
@@ -95,6 +100,12 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return children.find((child) => child.id === args.id);
+      },
+    },
+    getChildren: {
+      type: new GraphQLList(ChildType),
+      resolve(parent, args) {
+        return children;
       },
     },
   },
