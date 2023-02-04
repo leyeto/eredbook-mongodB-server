@@ -1,4 +1,5 @@
 export type Person = {
+  id: String;
   firstName: String;
   lastName: String;
   dateOfBirth: Date;
@@ -7,7 +8,7 @@ export type Person = {
 
 export type Child = Person & {
   nhsNumber: String;
-  birthWeight?: number | null;
+  birthWeightInKg?: number | null;
   birthHospital?: String | null;
   picture?: String;
   birthHeight?: number | null;
