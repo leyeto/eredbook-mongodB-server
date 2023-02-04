@@ -39,6 +39,20 @@ const WeightType = new GraphQLObjectType({
   }),
 });
 
+const ClinicianType = new GraphQLObjectType({
+  name: "Clinican",
+  fields: () => ({
+    firstName: { type: GraphQLString },
+    lastName: { type: GraphQLString },
+    username: { type: GraphQLString },
+    password: { type: GraphQLString },
+    role: { type: GraphQLString },
+    badgeNumber: { type: GraphQLString },
+    NMCPin: { type: GraphQLString },
+    department: { type: GraphQLString },
+  }),
+});
+
 // Parent
 
 const ParentType = new GraphQLObjectType({

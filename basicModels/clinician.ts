@@ -6,5 +6,5 @@ export type Clinician = {
   role: String;
   badgeNumber: String;
   NMCPin?: String;
-  Department: String;
+  department: String;
 };
