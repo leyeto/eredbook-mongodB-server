@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.weights = exports.parents = exports.children = void 0;
+exports.weights = exports.clinicians = exports.parents = exports.children = void 0;
 exports.children = [
     {
         id: "child1",
@@ -44,8 +44,31 @@ exports.parents = [
         occupation: "Senior Cost Accountant",
     },
 ];
+exports.clinicians = [
+    {
+        clinicianId: "clinician01",
+        firstName: "Brad",
+        lastName: "Shawn",
+        username: "bShawn",
+        password: "bShawn",
+        role: "Midwife",
+        badgeNumber: "KC75958",
+        NMCPin: "7439874",
+        department: "Midwifery",
+    },
+];
 exports.weights = [
-    { dateOfWeight: new Date(2022, 10, 23), ageInWeeks: 45, weight: 5.5 },
-    { dateOfWeight: new Date(2022, 11, 23), ageInWeeks: 55, weight: 6.5 },
+    {
+        dateOfWeight: new Date(2022, 10, 23),
+        ageInWeeks: 45,
+        weight: 5.5,
+        clinicianId: "clinician01",
+    },
+    {
+        dateOfWeight: new Date(2022, 11, 23),
+        ageInWeeks: 55,
+        weight: 6.5,
+        clinicianId: "clinician01",
+    },
 ];
 //# sourceMappingURL=sampleData.js.map

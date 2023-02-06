@@ -23,18 +23,26 @@ const ChildType = new graphql_1.GraphQLObjectType({
 const WeightType = new graphql_1.GraphQLObjectType({
     name: "Weight",
     fields: () => ({
+        weightID: { type: graphql_1.GraphQLID },
         dateOfWeight: { type: graphql_1.GraphQLString },
         ageInWeeks: { type: graphql_1.GraphQLFloat },
         weight: { type: graphql_1.GraphQLFloat },
         height: { type: graphql_1.GraphQLFloat },
         OtherMeasurementsMetric: { type: graphql_1.GraphQLString },
         OtherMeasurementsMeasured: { type: graphql_1.GraphQLFloat },
+        clinician: {
+            type: ClinicianType,
+            resolve(parent, args) {
+                return sampleData_1.clinicians.find((clinician) => clinician.clinicianId === parent.clinicianId);
+            },
+        },
     }),
 });
 // ClinicianType
 const ClinicianType = new graphql_1.GraphQLObjectType({
     name: "Clinican",
     fields: () => ({
+        clinicianID: { type: graphql_1.GraphQLID },
         firstName: { type: graphql_1.GraphQLString },
         lastName: { type: graphql_1.GraphQLString },
         username: { type: graphql_1.GraphQLString },
@@ -49,6 +57,7 @@ const ClinicianType = new graphql_1.GraphQLObjectType({
 const ParentType = new graphql_1.GraphQLObjectType({
     name: "Parent",
     fields: () => ({
+        parentID: { type: graphql_1.GraphQLID },
         firstName: { type: graphql_1.GraphQLString },
         lastName: { type: graphql_1.GraphQLString },
         dateOfBirth: { type: graphql_1.GraphQLString },
@@ -64,6 +73,7 @@ const ParentType = new graphql_1.GraphQLObjectType({
 const NotesType = new graphql_1.GraphQLObjectType({
     name: "Note",
     fields: () => ({
+        noteID: { type: graphql_1.GraphQLID },
         dateOfEntry: { type: graphql_1.GraphQLString },
         comment: { type: graphql_1.GraphQLString },
         nameAndDesignation: { type: graphql_1.GraphQLString },

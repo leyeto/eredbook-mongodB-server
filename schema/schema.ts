@@ -1,4 +1,4 @@
-import { children, parents, weights } from "../sampleData";
+import { children, parents, weights, clinicians } from "../sampleData";
 const Child = require("../basicModels/child");
 import {
   GraphQLFloat,
@@ -37,6 +37,14 @@ const WeightType = new GraphQLObjectType({
     height: { type: GraphQLFloat },
     OtherMeasurementsMetric: { type: GraphQLString },
     OtherMeasurementsMeasured: { type: GraphQLFloat },
+    clinician: {
+      type: ClinicianType,
+      resolve(parent, args) {
+        return clinicians.find(
+          (clinician) => clinician.clinicianId === parent.clinicianId
+        );
+      },
+    },
   }),
 });
 
@@ -103,6 +111,12 @@ const RootQuery = new GraphQLObjectType({
       },
     },
     getChildren: {
+      type: new GraphQLList(ChildType),
+      resolve(parent, args) {
+        return children;
+      },
+    },
+    getWeights: {
       type: new GraphQLList(ChildType),
       resolve(parent, args) {
         return children;

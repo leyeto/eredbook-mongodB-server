@@ -5,5 +5,5 @@ export type Weight = {
   height?: number;
   otherMeasurementsName?: String;
   otherMeasurementsNumber?: number;
-  clinician?: String;
+  clinicianId: String;
 };

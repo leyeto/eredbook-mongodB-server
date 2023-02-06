@@ -1,4 +1,5 @@
 export type Clinician = {
+  clinicianId: String;
   firstName: String;
   lastName: String;
   username: String;
