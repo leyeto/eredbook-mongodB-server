@@ -117,9 +117,9 @@ const RootQuery = new GraphQLObjectType({
       },
     },
     getWeights: {
-      type: new GraphQLList(ChildType),
+      type: new GraphQLList(WeightType),
       resolve(parent, args) {
-        return children;
+        return weights;
       },
     },
   },

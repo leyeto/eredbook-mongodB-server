@@ -59,12 +59,14 @@ exports.clinicians = [
 ];
 exports.weights = [
     {
+        weightId: "weight01",
         dateOfWeight: new Date(2022, 10, 23),
         ageInWeeks: 45,
         weight: 5.5,
         clinicianId: "clinician01",
     },
     {
+        weightId: "weight02",
         dateOfWeight: new Date(2022, 11, 23),
         ageInWeeks: 55,
         weight: 6.5,

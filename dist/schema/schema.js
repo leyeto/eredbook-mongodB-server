@@ -103,6 +103,12 @@ const RootQuery = new graphql_1.GraphQLObjectType({
                 return sampleData_1.children;
             },
         },
+        getWeights: {
+            type: new graphql_1.GraphQLList(WeightType),
+            resolve(parent, args) {
+                return sampleData_1.weights;
+            },
+        },
     },
 });
 //Mutations
