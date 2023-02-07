@@ -9,7 +9,7 @@ const port = process.env.PORT || 5000;
 const app = express();
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", true);
-// connectDB();
+connectDB();
 app.use(cors());
 app.use("/graphql", graphqlHTTP({
     schema: schema,
