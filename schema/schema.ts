@@ -46,9 +46,7 @@ const WeightType = new GraphQLObjectType({
     clinician: {
       type: ClinicianType,
       resolve(parent, args) {
-        return clinicians.find(
-          (clinician) => clinician.clinicianId === parent.clinicianId
-        );
+        return Clinician.findbyId(parent.args.id);
       },
     },
   }),
