@@ -1,5 +1,11 @@
 import { children, parents, weights, clinicians } from "../sampleData";
-const Child = require("../basicModels/child");
+
+const Child = require("../mongooseModels/Child");
+const Clinician = require("../mongooseModels/Clinician");
+const Note = require("../mongooseModels/Note");
+const Parent = require("../mongooseModels/Parent");
+const Weight = require("../mongooseModels/Weight");
+
 import {
   GraphQLFloat,
   GraphQLID,
@@ -100,26 +106,26 @@ const RootQuery = new GraphQLObjectType({
       type: ChildType,
       args: { nhsNumber: { type: GraphQLID } },
       resolve(parent, args) {
-        return children.find((child) => child.nhsNumber === args.nhsNumber);
+        return Child.findbyId(args.nhsNumber);
       },
     },
     child: {
       type: ChildType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        return children.find((child) => child.id === args.id);
+        return Child.findbyId(args.id);
       },
     },
     getChildren: {
       type: new GraphQLList(ChildType),
       resolve(parent, args) {
-        return children;
+        return Child.find();
       },
     },
     getWeights: {
       type: new GraphQLList(WeightType),
       resolve(parent, args) {
-        return weights;
+        return Weight.find();
       },
     },
   },
