@@ -10,8 +10,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose = require("mongoose");
+const { set } = mongoose;
 const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    mongoose.set("strictQuery", false);
+    set("strictQuery", false);
     try {
         const connection = yield mongoose.connect(process.env.MONGO_URI, {
             serverSelectionTimeoutMS: 5000,
