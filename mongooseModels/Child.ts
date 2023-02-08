@@ -19,4 +19,4 @@ const ChildSchema = new Schema({
   genotype: { type: String, enum: ["AA", "AS", "SS", "AC"] },
 });
 
-export default mongoose.model("Child", ChildSchema);
+module.exports = mongoose.model("Child", ChildSchema);

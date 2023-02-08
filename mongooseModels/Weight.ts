@@ -13,4 +13,4 @@ const weightSchema = new Schema(
   },
   { timestamps: true }
 );
-export default mongoose.model("Weight", weightSchema);
+module.exports = mongoose.model("Weight", weightSchema);

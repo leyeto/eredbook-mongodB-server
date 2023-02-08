@@ -13,4 +13,4 @@ const parentSchema = new Schema({
   occupation: { type: String },
 });
 
-export default mongoose.model("Parent", parentSchema);
+module.exports = mongoose.model("Parent", parentSchema);

@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const sampleData_1 = require("../sampleData");
 const Child = require("../mongooseModels/Child");
 const Clinician = require("../mongooseModels/Clinician");
 const Note = require("../mongooseModels/Note");
@@ -37,7 +36,7 @@ const WeightType = new graphql_1.GraphQLObjectType({
         clinician: {
             type: ClinicianType,
             resolve(parent, args) {
-                return sampleData_1.clinicians.find((clinician) => clinician.clinicianId === parent.clinicianId);
+                return Clinician.findbyId(parent.args.id);
             },
         },
     }),

@@ -21,5 +21,5 @@ const ChildSchema = new Schema({
     },
     genotype: { type: String, enum: ["AA", "AS", "SS", "AC"] },
 });
-exports.default = mongoose_1.default.model("Child", ChildSchema);
+module.exports = mongoose_1.default.model("Child", ChildSchema);
 //# sourceMappingURL=Child.js.map

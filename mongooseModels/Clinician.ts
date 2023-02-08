@@ -13,4 +13,4 @@ const ClinicianSchema = new Schema({
   department: { type: String },
 });
 
-export default mongoose.model("Clinician", ClinicianSchema);
+module.exports = mongoose.model("Clinician", ClinicianSchema);
