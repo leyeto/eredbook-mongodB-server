@@ -1,7 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const sampleData_1 = require("../sampleData");
-const Child = require("../basicModels/child");
+const Child = require("../mongooseModels/Child");
+const Clinician = require("../mongooseModels/Clinician");
+const Note = require("../mongooseModels/Note");
+const Parent = require("../mongooseModels/Parent");
+const Weight = require("../mongooseModels/Weight");
 const graphql_1 = require("graphql");
 //Child
 const ChildType = new graphql_1.GraphQLObjectType({
@@ -87,26 +91,26 @@ const RootQuery = new graphql_1.GraphQLObjectType({
             type: ChildType,
             args: { nhsNumber: { type: graphql_1.GraphQLID } },
             resolve(parent, args) {
-                return sampleData_1.children.find((child) => child.nhsNumber === args.nhsNumber);
+                return Child.findbyId(args.nhsNumber);
             },
         },
         child: {
             type: ChildType,
             args: { id: { type: graphql_1.GraphQLID } },
             resolve(parent, args) {
-                return sampleData_1.children.find((child) => child.id === args.id);
+                return Child.findbyId(args.id);
             },
         },
         getChildren: {
             type: new graphql_1.GraphQLList(ChildType),
             resolve(parent, args) {
-                return sampleData_1.children;
+                return Child.find();
             },
         },
         getWeights: {
             type: new graphql_1.GraphQLList(WeightType),
             resolve(parent, args) {
-                return sampleData_1.weights;
+                return Weight.find();
             },
         },
     },

@@ -5,16 +5,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const { Schema } = mongoose_1.default;
-const ClinicianSchema = new Schema({
+const parentSchema = new Schema({
     firstName: { type: String },
     lastName: { type: String },
     dateOfBirth: { type: Date },
+    address: { type: String },
+    contactNumber: { type: String },
     username: { type: String },
     password: { type: String },
-    role: { type: String },
-    badgeNumber: { type: String },
-    NMCPin: { type: String },
-    department: { type: String },
+    email: { type: String },
+    occupation: { type: String },
 });
-exports.default = mongoose_1.default.model("Clinician", ClinicianSchema);
-//# sourceMappingURL=Clinician.js.map
+exports.default = mongoose_1.default.model("Parent", parentSchema);
+//# sourceMappingURL=Parent.js.map
