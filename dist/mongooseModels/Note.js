@@ -11,5 +11,5 @@ const NoteSchema = new Schema({
     nameAndDesignation: { type: Schema.Types.ObjectId, ref: "Clinician" },
     clinicianBadgeNumer: { type: Schema.Types.ObjectId, ref: "Clinician" },
 }, { timestamps: true });
-exports.default = mongoose_1.default.model("Note", NoteSchema);
+module.exports = mongoose_1.default.model("Note", NoteSchema);
 //# sourceMappingURL=Note.js.map

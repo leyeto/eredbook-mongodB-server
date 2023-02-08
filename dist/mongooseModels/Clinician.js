@@ -16,5 +16,5 @@ const ClinicianSchema = new Schema({
     NMCPin: { type: String },
     department: { type: String },
 });
-exports.default = mongoose_1.default.model("Clinician", ClinicianSchema);
+module.exports = mongoose_1.default.model("Clinician", ClinicianSchema);
 //# sourceMappingURL=Clinician.js.map

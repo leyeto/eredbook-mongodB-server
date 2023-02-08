@@ -16,5 +16,5 @@ const parentSchema = new Schema({
     email: { type: String },
     occupation: { type: String },
 });
-exports.default = mongoose_1.default.model("Parent", parentSchema);
+module.exports = mongoose_1.default.model("Parent", parentSchema);
 //# sourceMappingURL=Parent.js.map

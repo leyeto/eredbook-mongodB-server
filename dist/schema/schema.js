@@ -125,12 +125,24 @@ const mutation = new graphql_1.GraphQLObjectType({
                 firstName: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
                 lastName: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
                 dateOfBirth: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
+                address: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
+                birthWeightInKg: { type: graphql_1.GraphQLFloat, defaultValue: null },
+                birthHeight: { type: graphql_1.GraphQLFloat, defaultValue: null },
+                nhsNumber: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
+                birthHospital: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
+                picture: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString), defaultValue: null },
             },
             resolve(parent, args) {
                 const child = new Child({
                     firstName: args.firstName,
-                    lastName: args.lastNmae,
+                    lastName: args.lastName,
                     dateOfBirth: args.dateOfBirth,
+                    address: args.address,
+                    birthWeightInKg: args.birthWeightInKg,
+                    birthHeight: args.birthHeight,
+                    nhsNumber: args.nhsNumber,
+                    birthHospital: args.birthHospital,
+                    picture: args.picture,
                 });
                 return child.save();
             },
