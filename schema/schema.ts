@@ -132,7 +132,7 @@ const RootQuery = new GraphQLObjectType({
 //Mutations
 const mutation = new GraphQLObjectType({
   name: "Mutation",
-  fields: {
+  fields: () => ({
     // Add Child
     addChild: {
       type: ChildType,
@@ -162,9 +162,10 @@ const mutation = new GraphQLObjectType({
         return child.save();
       },
     },
-  },
+  }),
 });
 
 module.exports = new GraphQLSchema({
   query: RootQuery,
+  mutation,
 });
