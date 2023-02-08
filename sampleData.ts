@@ -1,4 +1,5 @@
 import { Child } from "./basicModels/child";
+import { Clinician } from "./basicModels/clinician";
 import { Parent } from "./basicModels/parent";
 import { Weight } from "./basicModels/weights";
 
@@ -47,7 +48,33 @@ export const parents: Array<Parent> = [
   },
 ];
 
+export const clinicians: Array<Clinician> = [
+  {
+    clinicianId: "clinician01",
+    firstName: "Brad",
+    lastName: "Shawn",
+    username: "bShawn",
+    password: "bShawn",
+    role: "Midwife",
+    badgeNumber: "KC75958",
+    NMCPin: "7439874",
+    department: "Midwifery",
+  },
+];
+
 export const weights: Array<Weight> = [
-  { dateOfWeight: new Date(2022, 10, 23), ageInWeeks: 45, weight: 5.5 },
-  { dateOfWeight: new Date(2022, 11, 23), ageInWeeks: 55, weight: 6.5 },
+  {
+    weightId: "weight01",
+    dateOfWeight: new Date(2022, 10, 23),
+    ageInWeeks: 45,
+    weight: 5.5,
+    clinicianId: "clinician01",
+  },
+  {
+    weightId: "weight02",
+    dateOfWeight: new Date(2022, 11, 23),
+    ageInWeeks: 55,
+    weight: 6.5,
+    clinicianId: "clinician01",
+  },
 ];

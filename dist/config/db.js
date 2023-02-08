@@ -10,10 +10,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose = require("mongoose");
-mongoose.set("strictQuery", true);
 const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    const conn = yield mongoose.connect(process.env.MONGO_URI);
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
+    mongoose.set("strictQuery", false);
+    try {
+        const connection = yield mongoose.connect(process.env.MONGO_URI, {
+            serverSelectionTimeoutMS: 5000,
+        });
+        console.log(`MongoDB Connected : ${connection.connection.host}`);
+    }
+    catch (error) {
+        console.log("Unable to connect to MongoDB ", error);
+    }
 });
 module.exports = connectDB;
 //# sourceMappingURL=db.js.map
