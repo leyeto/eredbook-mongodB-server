@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-const Clinician = new Schema({
+const ClinicianSchema = new Schema({
   firstName: { type: String },
   lastName: { type: String },
   dateOfBirth: { type: Date },
@@ -13,4 +13,4 @@ const Clinician = new Schema({
   department: { type: String },
 });
 
-export default Clinician;
+export default mongoose.model("Clinician", ClinicianSchema);
