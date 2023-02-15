@@ -147,7 +147,7 @@ const mutation = new graphql_1.GraphQLObjectType({
                 return child.save();
             },
         },
-        UpdateChild: {
+        updateChild: {
             type: ChildType,
             args: {
                 id: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLID) },
