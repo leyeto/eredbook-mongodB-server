@@ -147,6 +147,36 @@ const mutation = new graphql_1.GraphQLObjectType({
                 return child.save();
             },
         },
+        UpdateChild: {
+            type: ChildType,
+            args: {
+                id: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLID) },
+                firstName: { type: graphql_1.GraphQLString },
+                lastName: { type: graphql_1.GraphQLString },
+                dateOfBirth: { type: graphql_1.GraphQLString },
+                address: { type: graphql_1.GraphQLString },
+                birthWeightInKg: { type: graphql_1.GraphQLFloat },
+                birthHeight: { type: graphql_1.GraphQLFloat },
+                nhsNumber: { type: graphql_1.GraphQLString },
+                birthHospital: { type: graphql_1.GraphQLString },
+                picture: { type: graphql_1.GraphQLString },
+            },
+            resolve(parent, args) {
+                return Child.findByIdAndUpdate(args.id, {
+                    $set: {
+                        firstName: args.firstName,
+                        lastName: args.lastName,
+                        dateOfBirth: args.dateOfBirth,
+                        address: args.address,
+                        birthWeightInKg: args.birthWeightInKg,
+                        birthHeight: args.birthHeight,
+                        nhsNumber: args.nhsNumber,
+                        birthHospital: args.birthHospital,
+                        picture: args.picture,
+                    },
+                });
+            },
+        },
         deleteChild: {
             type: ChildType,
             args: {
