@@ -162,6 +162,15 @@ const mutation = new GraphQLObjectType({
         return child.save();
       },
     },
+    deleteChild: {
+      type: ChildType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLID) },
+      },
+      resolve(parent, args) {
+        return Child.findByIdAndRemove(args.id);
+      },
+    },
   }),
 });
 
