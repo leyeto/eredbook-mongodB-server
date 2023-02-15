@@ -1,4 +1,5 @@
 import { children, parents, weights, clinicians } from "../sampleData";
+import { Schema } from "mongoose";
 
 const Child = require("../mongooseModels/Child");
 const Clinician = require("../mongooseModels/Clinician");
@@ -132,7 +133,7 @@ const RootQuery = new GraphQLObjectType({
 //Mutations
 const mutation = new GraphQLObjectType({
   name: "Mutation",
-  fields: {
+  fields: () => ({
     // Add Child
     addChild: {
       type: ChildType,
@@ -140,19 +141,75 @@ const mutation = new GraphQLObjectType({
         firstName: { type: GraphQLNonNull(GraphQLString) },
         lastName: { type: GraphQLNonNull(GraphQLString) },
         dateOfBirth: { type: GraphQLNonNull(GraphQLString) },
+        address: { type: GraphQLNonNull(GraphQLString) },
+        birthWeightInKg: { type: GraphQLFloat, defaultValue: null },
+        birthHeight: { type: GraphQLFloat, defaultValue: null },
+        nhsNumber: { type: GraphQLNonNull(GraphQLString) },
+        birthHospital: { type: GraphQLNonNull(GraphQLString) },
+        picture: { type: GraphQLNonNull(GraphQLString), defaultValue: null },
       },
       resolve(parent, args) {
         const child = new Child({
           firstName: args.firstName,
-          lastName: args.lastNmae,
+          lastName: args.lastName,
           dateOfBirth: args.dateOfBirth,
+          address: args.address,
+          birthWeightInKg: args.birthWeightInKg,
+          birthHeight: args.birthHeight,
+          nhsNumber: args.nhsNumber,
+          birthHospital: args.birthHospital,
+          picture: args.picture,
         });
         return child.save();
       },
     },
-  },
+    updateChild: {
+      type: ChildType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLID) },
+        firstName: { type: GraphQLString },
+        lastName: { type: GraphQLString },
+        dateOfBirth: { type: GraphQLString },
+        address: { type: GraphQLString },
+        birthWeightInKg: { type: GraphQLFloat },
+        birthHeight: { type: GraphQLFloat },
+        nhsNumber: { type: GraphQLString },
+        birthHospital: { type: GraphQLString },
+        picture: { type: GraphQLString },
+      },
+      resolve(parent, args) {
+        return Child.findByIdAndUpdate(
+          args.id,
+
+          {
+            $set: {
+              firstName: args.firstName,
+              lastName: args.lastName,
+              dateOfBirth: args.dateOfBirth,
+              address: args.address,
+              birthWeightInKg: args.birthWeightInKg,
+              birthHeight: args.birthHeight,
+              nhsNumber: args.nhsNumber,
+              birthHospital: args.birthHospital,
+              picture: args.picture,
+            },
+          }
+        );
+      },
+    },
+    deleteChild: {
+      type: ChildType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLID) },
+      },
+      resolve(parent, args) {
+        return Child.findByIdAndRemove(args.id);
+      },
+    },
+  }),
 });
 
 module.exports = new GraphQLSchema({
   query: RootQuery,
+  mutation,
 });

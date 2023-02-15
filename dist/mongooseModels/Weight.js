@@ -14,5 +14,5 @@ const weightSchema = new Schema({
     otherMeasurementsNumber: { type: Number },
     clinicianId: { type: Schema.Types.ObjectId, ref: "Clinican" },
 }, { timestamps: true });
-exports.default = mongoose_1.default.model("Weight", weightSchema);
+module.exports = mongoose_1.default.model("Weight", weightSchema);
 //# sourceMappingURL=Weight.js.map
