@@ -5,54 +5,50 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const { Schema } = mongoose_1.default;
-var BloodGroupTypes;
-(function (BloodGroupTypes) {
-    BloodGroupTypes[BloodGroupTypes["A+"] = 0] = "A+";
-    BloodGroupTypes[BloodGroupTypes["A-"] = 1] = "A-";
-    BloodGroupTypes[BloodGroupTypes["B+"] = 2] = "B+";
-    BloodGroupTypes[BloodGroupTypes["B-"] = 3] = "B-";
-    BloodGroupTypes[BloodGroupTypes["O+"] = 4] = "O+";
-    BloodGroupTypes[BloodGroupTypes["O-"] = 5] = "O-";
-    BloodGroupTypes[BloodGroupTypes["AB+"] = 6] = "AB+";
-    BloodGroupTypes[BloodGroupTypes["AB-"] = 7] = "AB-";
-})(BloodGroupTypes || (BloodGroupTypes = {}));
-var GenoTypes;
-(function (GenoTypes) {
-    GenoTypes[GenoTypes["AA"] = 0] = "AA";
-    GenoTypes[GenoTypes["AS"] = 1] = "AS";
-    GenoTypes[GenoTypes["SS"] = 2] = "SS";
-    GenoTypes[GenoTypes["AC"] = 3] = "AC";
-})(GenoTypes || (GenoTypes = {}));
-// const ChildSchema = new Schema({
-//   firstName: { type: String, required: true },
-//   lastName: { type: String, required: true },
-//   dateOfBirth: { type: Date, required: true },
-//   address: { type: String, required: true },
-//   birthWeightInKg: { type: Number, required: true },
-//   birthHeightInCm: { type: Number, required: true },
-//   birthHospital: { type: String, required: false },
-//   picture: { type: String, required: false },
-//   bloodGroup: {
-//     type: String,
-//     enum: ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"],
-//     required: false,
-//   },
-//   genotype: { type: String, enum: ["AA", "AS", "SS", "AC"], required: false },
-// });
+// type Child = {
+//   firstName: string;
+//   lastName: string;
+//   dateOfBirth: Date;
+//   address: string;
+//   birthWeightInKg: number;
+//   birthHeightInCm: number;
+//   birthHospital: string;
+//   picture: string;
+//   bloodGroup: BloodGroupTypes;
+//   genotype: GenoTypes;
+// };
+// enum BloodGroupTypes {
+//   "A+",
+//   "A-",
+//   "B+",
+//   "B-",
+//   "O+",
+//   "O-",
+//   "AB+",
+//   "AB-",
+// }
+// enum GenoTypes {
+//   "AA",
+//   "AS",
+//   "SS",
+//   "AC",
+// }
 const ChildSchema = new Schema({
     firstName: { type: String, required: true },
+    _nhsNumber: Schema.Types.ObjectId,
     lastName: { type: String, required: true },
     dateOfBirth: { type: Date, required: true },
     address: { type: String, required: true },
-    birthWeightInKg: { type: Number, required: false },
-    birthHeightInCm: { type: Number, required: false },
+    birthWeightInKg: { type: Number },
+    birthHeightInCm: { type: Number },
     birthHospital: { type: String, required: false },
     picture: { type: String, required: false },
     bloodGroup: {
-        enum: BloodGroupTypes,
+        type: String,
+        enum: ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"],
         required: false,
     },
-    genotype: { enum: GenoTypes, required: false },
+    genotype: { type: String, enum: ["AA", "AS", "SS", "AC"], required: false },
 });
 module.exports = mongoose_1.default.model("Child", ChildSchema);
 //# sourceMappingURL=Child.js.map

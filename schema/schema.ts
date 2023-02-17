@@ -8,6 +8,7 @@ const Parent = require("../mongooseModels/Parent");
 const Weight = require("../mongooseModels/Weight");
 
 import {
+  GraphQLBoolean,
   GraphQLFloat,
   GraphQLID,
   GraphQLList,
@@ -204,6 +205,37 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parent, args) {
         return Child.findByIdAndRemove(args.id);
+      },
+    },
+    // Clinician Mutations
+    addClinician: {
+      type: ClinicianType,
+      args: {
+        firstName: { type: GraphQLNonNull(GraphQLString) },
+        lastName: { type: GraphQLNonNull(GraphQLString) },
+        dateOfBirth: { type: GraphQLString },
+        username: { type: GraphQLNonNull(GraphQLString) },
+        password: { type: GraphQLNonNull(GraphQLString) },
+        role: { type: GraphQLString },
+        badgeNumber: { type: GraphQLString },
+        NMCPin: { type: GraphQLString },
+        department: { type: GraphQLString },
+        isActive: { type: GraphQLBoolean, defaultValue: true },
+      },
+      resolve: (_parent, args) => {
+        const clinician = new Clinician({
+          firstName: args.firstName,
+          lastName: args.lastName,
+          dateOfBirth: args.dateOfBirth,
+          username: args.username,
+          password: args.password,
+          role: args.role,
+          badgeNumber: args.badgeNumber,
+          NMCPin: args.NMCPin,
+          department: args.department,
+          isActive: args.isAcive,
+        });
+        return clinician.save();
       },
     },
   }),

@@ -36,8 +36,8 @@ const ChildSchema = new Schema({
   lastName: { type: String, required: true },
   dateOfBirth: { type: Date, required: true },
   address: { type: String, required: true },
-  birthWeightInKg: { type: Number, required: true },
-  birthHeightInCm: { type: Number, required: true },
+  birthWeightInKg: { type: Number },
+  birthHeightInCm: { type: Number },
   birthHospital: { type: String, required: false },
   picture: { type: String, required: false },
   bloodGroup: {
