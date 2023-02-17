@@ -11,6 +11,7 @@ const ClinicianSchema = new Schema({
   badgeNumber: { type: String },
   NMCPin: { type: String },
   department: { type: String },
+  isAcive: { type: Boolean },
 });
 
 module.exports = mongoose.model("Clinician", ClinicianSchema);
