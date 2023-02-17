@@ -23,16 +23,35 @@ var GenoTypes;
     GenoTypes[GenoTypes["SS"] = 2] = "SS";
     GenoTypes[GenoTypes["AC"] = 3] = "AC";
 })(GenoTypes || (GenoTypes = {}));
+// const ChildSchema = new Schema({
+//   firstName: { type: String, required: true },
+//   lastName: { type: String, required: true },
+//   dateOfBirth: { type: Date, required: true },
+//   address: { type: String, required: true },
+//   birthWeightInKg: { type: Number, required: true },
+//   birthHeightInCm: { type: Number, required: true },
+//   birthHospital: { type: String, required: false },
+//   picture: { type: String, required: false },
+//   bloodGroup: {
+//     type: String,
+//     enum: ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"],
+//     required: false,
+//   },
+//   genotype: { type: String, enum: ["AA", "AS", "SS", "AC"], required: false },
+// });
 const ChildSchema = new Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     dateOfBirth: { type: Date, required: true },
     address: { type: String, required: true },
-    birthWeightInKg: { type: Number, required: true },
-    birthHeightInCm: { type: Number, required: true },
+    birthWeightInKg: { type: Number, required: false },
+    birthHeightInCm: { type: Number, required: false },
     birthHospital: { type: String, required: false },
     picture: { type: String, required: false },
-    bloodGroup: { enum: BloodGroupTypes, required: false },
+    bloodGroup: {
+        enum: BloodGroupTypes,
+        required: false,
+    },
     genotype: { enum: GenoTypes, required: false },
 });
 module.exports = mongoose_1.default.model("Child", ChildSchema);
