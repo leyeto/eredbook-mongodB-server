@@ -45,7 +45,6 @@ const WeightType = new graphql_1.GraphQLObjectType({
 const ClinicianType = new graphql_1.GraphQLObjectType({
     name: "Clinican",
     fields: () => ({
-        clinicianID: { type: graphql_1.GraphQLID },
         firstName: { type: graphql_1.GraphQLString },
         lastName: { type: graphql_1.GraphQLString },
         username: { type: graphql_1.GraphQLString },
@@ -184,6 +183,37 @@ const mutation = new graphql_1.GraphQLObjectType({
             },
             resolve(parent, args) {
                 return Child.findByIdAndRemove(args.id);
+            },
+        },
+        // Clinician Mutations
+        addClinician: {
+            type: ClinicianType,
+            args: {
+                firstName: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
+                lastName: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
+                dateOfBirth: { type: graphql_1.GraphQLString },
+                username: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
+                password: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
+                role: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
+                badgeNumber: { type: graphql_1.GraphQLString },
+                NMCPin: { type: graphql_1.GraphQLString },
+                department: { type: graphql_1.GraphQLString },
+                isActive: { type: graphql_1.GraphQLBoolean, defaultValue: true },
+            },
+            resolve: (_parent, args) => {
+                const clinician = new Clinician({
+                    firstName: args.firstName,
+                    lastName: args.lastName,
+                    dateOfBirth: args.dateOfBirth,
+                    username: args.username,
+                    password: args.password,
+                    role: args.role,
+                    badgeNumber: args.badgeNumber,
+                    NMCPin: args.NMCPin,
+                    department: args.department,
+                    isActive: args.isAcive,
+                });
+                return clinician.save();
             },
         },
     }),

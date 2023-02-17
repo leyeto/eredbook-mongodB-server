@@ -6,12 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const { Schema } = mongoose_1.default;
 const ClinicianSchema = new Schema({
-    firstName: { type: String },
-    lastName: { type: String },
+    firstName: { type: String, require: true },
+    lastName: { type: String, require: true },
     dateOfBirth: { type: Date },
-    username: { type: String },
-    password: { type: String },
-    role: { type: String },
+    username: { type: String, require: true, unique: true },
+    password: { type: String, default: "password" },
+    role: { type: String, required: true },
     badgeNumber: { type: String },
     NMCPin: { type: String },
     department: { type: String },

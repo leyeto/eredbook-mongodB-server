@@ -58,7 +58,6 @@ const WeightType = new GraphQLObjectType({
 const ClinicianType = new GraphQLObjectType({
   name: "Clinican",
   fields: () => ({
-    clinicianID: { type: GraphQLID },
     firstName: { type: GraphQLString },
     lastName: { type: GraphQLString },
     username: { type: GraphQLString },
@@ -216,7 +215,7 @@ const mutation = new GraphQLObjectType({
         dateOfBirth: { type: GraphQLString },
         username: { type: GraphQLNonNull(GraphQLString) },
         password: { type: GraphQLNonNull(GraphQLString) },
-        role: { type: GraphQLString },
+        role: { type: GraphQLNonNull(GraphQLString) },
         badgeNumber: { type: GraphQLString },
         NMCPin: { type: GraphQLString },
         department: { type: GraphQLString },
@@ -236,6 +235,33 @@ const mutation = new GraphQLObjectType({
           isActive: args.isAcive,
         });
         return clinician.save();
+      },
+    },
+    // Deactivate Clinican
+    deactivateClinician: {
+      type: ClinicianType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLString) },
+      },
+      resolve: (_parent, args) => {
+        return Clinician.findByIdAndUpdate(args.id, {
+          $set: {
+            isActive: false,
+          },
+        });
+      },
+    },
+    activateClinician: {
+      type: ClinicianType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLString) },
+      },
+      resolve: (_parent, args) => {
+        return Clinician.findByIdAndUpdate(args.id, {
+          $set: {
+            isActive: true,
+          },
+        });
       },
     },
   }),

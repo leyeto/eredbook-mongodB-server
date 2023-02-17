@@ -35,7 +35,6 @@ const { Schema } = mongoose_1.default;
 // }
 const ChildSchema = new Schema({
     firstName: { type: String, required: true },
-    _nhsNumber: Schema.Types.ObjectId,
     lastName: { type: String, required: true },
     dateOfBirth: { type: Date, required: true },
     address: { type: String, required: true },
