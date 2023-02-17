@@ -58,6 +58,7 @@ const WeightType = new GraphQLObjectType({
 const ClinicianType = new GraphQLObjectType({
   name: "Clinican",
   fields: () => ({
+    id: { type: GraphQLID },
     firstName: { type: GraphQLString },
     lastName: { type: GraphQLString },
     username: { type: GraphQLString },
@@ -66,6 +67,7 @@ const ClinicianType = new GraphQLObjectType({
     badgeNumber: { type: GraphQLString },
     NMCPin: { type: GraphQLString },
     department: { type: GraphQLString },
+    isActive: { type: GraphQLBoolean },
   }),
 });
 
@@ -126,6 +128,10 @@ const RootQuery = new GraphQLObjectType({
       resolve(parent, args) {
         return Weight.find();
       },
+    },
+    getClinicians: {
+      type: new GraphQLList(ClinicianType),
+      resolve: (parent, args) => Clinician.find(),
     },
   },
 });

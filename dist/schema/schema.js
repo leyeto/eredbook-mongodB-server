@@ -45,6 +45,7 @@ const WeightType = new graphql_1.GraphQLObjectType({
 const ClinicianType = new graphql_1.GraphQLObjectType({
     name: "Clinican",
     fields: () => ({
+        id: { type: graphql_1.GraphQLID },
         firstName: { type: graphql_1.GraphQLString },
         lastName: { type: graphql_1.GraphQLString },
         username: { type: graphql_1.GraphQLString },
@@ -53,6 +54,7 @@ const ClinicianType = new graphql_1.GraphQLObjectType({
         badgeNumber: { type: graphql_1.GraphQLString },
         NMCPin: { type: graphql_1.GraphQLString },
         department: { type: graphql_1.GraphQLString },
+        isActive: { type: graphql_1.GraphQLBoolean },
     }),
 });
 // ParentType
@@ -110,6 +112,10 @@ const RootQuery = new graphql_1.GraphQLObjectType({
             resolve(parent, args) {
                 return Weight.find();
             },
+        },
+        getClinicians: {
+            type: new graphql_1.GraphQLList(ClinicianType),
+            resolve: (parent, args) => Clinician.find(),
         },
     },
 });
@@ -214,6 +220,33 @@ const mutation = new graphql_1.GraphQLObjectType({
                     isActive: args.isAcive,
                 });
                 return clinician.save();
+            },
+        },
+        // Deactivate Clinican
+        deactivateClinician: {
+            type: ClinicianType,
+            args: {
+                id: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
+            },
+            resolve: (_parent, args) => {
+                return Clinician.findByIdAndUpdate(args.id, {
+                    $set: {
+                        isActive: false,
+                    },
+                });
+            },
+        },
+        activateClinician: {
+            type: ClinicianType,
+            args: {
+                id: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
+            },
+            resolve: (_parent, args) => {
+                return Clinician.findByIdAndUpdate(args.id, {
+                    $set: {
+                        isActive: true,
+                    },
+                });
             },
         },
     }),

@@ -15,7 +15,7 @@ const ClinicianSchema = new Schema({
     badgeNumber: { type: String },
     NMCPin: { type: String },
     department: { type: String },
-    isAcive: { type: Boolean },
+    isActive: { type: Boolean, default: true },
 });
 module.exports = mongoose_1.default.model("Clinician", ClinicianSchema);
 //# sourceMappingURL=Clinician.js.map
