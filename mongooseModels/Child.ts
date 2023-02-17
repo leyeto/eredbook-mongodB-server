@@ -2,21 +2,50 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
+// type Child = {
+//   firstName: string;
+//   lastName: string;
+//   dateOfBirth: Date;
+//   address: string;
+//   birthWeightInKg: number;
+//   birthHeightInCm: number;
+//   birthHospital: string;
+//   picture: string;
+//   bloodGroup: BloodGroupTypes;
+//   genotype: GenoTypes;
+// };
+// enum BloodGroupTypes {
+//   "A+",
+//   "A-",
+//   "B+",
+//   "B-",
+//   "O+",
+//   "O-",
+//   "AB+",
+//   "AB-",
+// }
+// enum GenoTypes {
+//   "AA",
+//   "AS",
+//   "SS",
+//   "AC",
+// }
+
 const ChildSchema = new Schema({
-  firstName: { type: String },
-  lastName: { type: String },
-  dateOfBirth: { type: Date },
-  address: { type: String },
-  birthWeightInKg: { type: Number },
-  birthHeight: { type: Number },
-  nhsNumber: { type: String },
-  birthHospital: { type: String },
-  picture: { type: String },
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  dateOfBirth: { type: Date, required: true },
+  address: { type: String, required: true },
+  birthWeightInKg: { type: Number, required: true },
+  birthHeightInCm: { type: Number, required: true },
+  birthHospital: { type: String, required: false },
+  picture: { type: String, required: false },
   bloodGroup: {
     type: String,
     enum: ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"],
+    required: false,
   },
-  genotype: { type: String, enum: ["AA", "AS", "SS", "AC"] },
+  genotype: { type: String, enum: ["AA", "AS", "SS", "AC"], required: false },
 });
 
 module.exports = mongoose.model("Child", ChildSchema);
