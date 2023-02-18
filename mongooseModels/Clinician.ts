@@ -8,8 +8,8 @@ const ClinicianSchema = new Schema({
   username: { type: String, require: true, unique: true },
   password: { type: String, default: "password" },
   role: { type: String, required: true },
-  badgeNumber: { type: String },
-  NMCPin: { type: String },
+  badgeNumber: { type: String, required: true, unique: true },
+  NMCPin: { type: String, required: true, unique: true },
   department: { type: String },
   isActive: { type: Boolean, default: true },
 });

@@ -270,6 +270,36 @@ const mutation = new GraphQLObjectType({
         });
       },
     },
+    editClinician: {
+      type: ClinicianType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLString) },
+        firstName: { type: GraphQLString },
+        lastName: { type: GraphQLString },
+        dateOfBirth: { type: GraphQLString },
+        username: { type: GraphQLString },
+        password: { type: GraphQLString },
+        role: { type: GraphQLString },
+        badgeNumber: { type: GraphQLString },
+        NMCPin: { type: GraphQLString },
+        department: { type: GraphQLString },
+      },
+      resolve: (_parent, args) => {
+        return Clinician.findByIdAndUpdate(args.id, {
+          $set: {
+            firstName: args.firstName,
+            lastName: args.lastName,
+            dateOfBirth: args.dateOfBirth,
+            username: args.username,
+            password: args.lastName,
+            role: args.role,
+            badgeNumber: args.badgeNumber,
+            NMCPin: args.NMCPin,
+            department: args.department,
+          },
+        });
+      },
+    },
   }),
 });
 
