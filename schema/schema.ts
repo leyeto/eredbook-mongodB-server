@@ -296,7 +296,7 @@ const mutation = new GraphQLObjectType({
         });
       },
     },
-    editClinician: {
+    updateClinician: {
       type: ClinicianType,
       args: {
         id: { type: GraphQLNonNull(GraphQLString) },
@@ -311,19 +311,25 @@ const mutation = new GraphQLObjectType({
         department: { type: GraphQLString },
       },
       resolve: (_parent, args) => {
-        return Clinician.findByIdAndUpdate(args.id, {
-          $set: {
-            firstName: args.firstName,
-            lastName: args.lastName,
-            dateOfBirth: args.dateOfBirth,
-            username: args.username,
-            password: args.lastName,
-            role: args.role,
-            badgeNumber: args.badgeNumber,
-            NMCPin: args.NMCPin,
-            department: args.department,
+        return Clinician.findByIdAndUpdate(
+          args.id,
+          {
+            $set: {
+              firstName: args.firstName,
+              lastName: args.lastName,
+              dateOfBirth: args.dateOfBirth,
+              username: args.username,
+              password: args.lastName,
+              role: args.role,
+              badgeNumber: args.badgeNumber,
+              NMCPin: args.NMCPin,
+              department: args.department,
+            },
           },
-        });
+          console.log(
+            "Update returns old data instead of new data, state might be used to fix this on the frontend"
+          )
+        );
       },
     },
   }),
