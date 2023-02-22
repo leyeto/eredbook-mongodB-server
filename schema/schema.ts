@@ -31,7 +31,7 @@ const ChildType = new GraphQLObjectType({
     birthWeightInKg: { type: GraphQLFloat },
     birthHospital: { type: GraphQLString },
     picture: { type: GraphQLString },
-    birthHeight: { type: GraphQLFloat },
+    birthHeightInCm: { type: GraphQLFloat },
     bloodGroup: { type: GraphQLString },
   }),
 });
@@ -107,14 +107,14 @@ const RootQuery = new GraphQLObjectType({
       type: ChildType,
       args: { nhsNumber: { type: GraphQLID } },
       resolve(parent, args) {
-        return Child.findbyId(args.nhsNumber);
+        return Child.find({ nhsNumber: args.nhsNumber });
       },
     },
-    child: {
+    getChildById: {
       type: ChildType,
-      args: { id: { type: GraphQLID } },
+      args: { id: { type: GraphQLNonNull(GraphQLID) } },
       resolve(parent, args) {
-        return Child.findbyId(args.id);
+        return Child.findById(args.id);
       },
     },
     getChildren: {
@@ -133,6 +133,29 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(ClinicianType),
       resolve: (parent, args) => Clinician.find(),
     },
+    getClinician: {
+      type: new GraphQLList(ClinicianType),
+      args: {
+        id: { type: GraphQLString },
+        username: { type: GraphQLString },
+        badgeNumber: { type: GraphQLString },
+        NMCPin: { type: GraphQLString },
+      },
+      resolve: (_parent, args) => {
+        if (args.id) {
+          return Clinician.findById(args.id);
+        }
+        if (args.username) {
+          return Clinician.findOne({ username: args.username }).exec();
+        }
+        if (args.badgeNumber) {
+          return Clinician.findOne({ badgeNumber: args.badgeNumber }).exec();
+        }
+        if (args.NMCPin) {
+          return Clinician.findOne({ NMCPin: args.NMCPin }).exec();
+        }
+      },
+    },
   },
 });
 
@@ -149,7 +172,7 @@ const mutation = new GraphQLObjectType({
         dateOfBirth: { type: GraphQLNonNull(GraphQLString) },
         address: { type: GraphQLNonNull(GraphQLString) },
         birthWeightInKg: { type: GraphQLFloat, defaultValue: null },
-        birthHeight: { type: GraphQLFloat, defaultValue: null },
+        birthHeightInCm: { type: GraphQLFloat, defaultValue: null },
         nhsNumber: { type: GraphQLNonNull(GraphQLString) },
         birthHospital: { type: GraphQLNonNull(GraphQLString) },
         picture: { type: GraphQLNonNull(GraphQLString), defaultValue: null },
@@ -161,7 +184,7 @@ const mutation = new GraphQLObjectType({
           dateOfBirth: args.dateOfBirth,
           address: args.address,
           birthWeightInKg: args.birthWeightInKg,
-          birthHeight: args.birthHeight,
+          birthHeightInCm: args.birthHeightInCm,
           nhsNumber: args.nhsNumber,
           birthHospital: args.birthHospital,
           picture: args.picture,
@@ -178,7 +201,7 @@ const mutation = new GraphQLObjectType({
         dateOfBirth: { type: GraphQLString },
         address: { type: GraphQLString },
         birthWeightInKg: { type: GraphQLFloat },
-        birthHeight: { type: GraphQLFloat },
+        birthHeightInCm: { type: GraphQLFloat },
         nhsNumber: { type: GraphQLString },
         birthHospital: { type: GraphQLString },
         picture: { type: GraphQLString },
@@ -194,7 +217,7 @@ const mutation = new GraphQLObjectType({
               dateOfBirth: args.dateOfBirth,
               address: args.address,
               birthWeightInKg: args.birthWeightInKg,
-              birthHeight: args.birthHeight,
+              birthHeightInCm: args.birthHeightInCm,
               nhsNumber: args.nhsNumber,
               birthHospital: args.birthHospital,
               picture: args.picture,

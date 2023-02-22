@@ -91,14 +91,14 @@ const RootQuery = new graphql_1.GraphQLObjectType({
             type: ChildType,
             args: { nhsNumber: { type: graphql_1.GraphQLID } },
             resolve(parent, args) {
-                return Child.findbyId(args.nhsNumber);
+                return Child.find({ nhsNumber: args.nhsNumber });
             },
         },
-        child: {
+        findChildById: {
             type: ChildType,
-            args: { id: { type: graphql_1.GraphQLID } },
+            args: { id: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLID) } },
             resolve(parent, args) {
-                return Child.findbyId(args.id);
+                return Child.findById(args.id);
             },
         },
         getChildren: {
@@ -116,6 +116,29 @@ const RootQuery = new graphql_1.GraphQLObjectType({
         getClinicians: {
             type: new graphql_1.GraphQLList(ClinicianType),
             resolve: (parent, args) => Clinician.find(),
+        },
+        findClinician: {
+            type: new graphql_1.GraphQLList(ClinicianType),
+            args: {
+                id: { type: graphql_1.GraphQLString },
+                username: { type: graphql_1.GraphQLString },
+                badgeNumber: { type: graphql_1.GraphQLString },
+                NMCPin: { type: graphql_1.GraphQLString },
+            },
+            resolve: (_parent, args) => {
+                if (args.id) {
+                    return Clinician.findById(args.id);
+                }
+                if (args.username) {
+                    return Clinician.findOne({ username: args.username }).exec();
+                }
+                if (args.badgeNumber) {
+                    return Clinician.findOne({ badgeNumber: args.badgeNumber }).exec();
+                }
+                if (args.NMCPin) {
+                    return Clinician.findOne({ NMCPin: args.NMCPin }).exec();
+                }
+            },
         },
     },
 });
@@ -245,6 +268,36 @@ const mutation = new graphql_1.GraphQLObjectType({
                 return Clinician.findByIdAndUpdate(args.id, {
                     $set: {
                         isActive: true,
+                    },
+                });
+            },
+        },
+        editClinician: {
+            type: ClinicianType,
+            args: {
+                id: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
+                firstName: { type: graphql_1.GraphQLString },
+                lastName: { type: graphql_1.GraphQLString },
+                dateOfBirth: { type: graphql_1.GraphQLString },
+                username: { type: graphql_1.GraphQLString },
+                password: { type: graphql_1.GraphQLString },
+                role: { type: graphql_1.GraphQLString },
+                badgeNumber: { type: graphql_1.GraphQLString },
+                NMCPin: { type: graphql_1.GraphQLString },
+                department: { type: graphql_1.GraphQLString },
+            },
+            resolve: (_parent, args) => {
+                return Clinician.findByIdAndUpdate(args.id, {
+                    $set: {
+                        firstName: args.firstName,
+                        lastName: args.lastName,
+                        dateOfBirth: args.dateOfBirth,
+                        username: args.username,
+                        password: args.lastName,
+                        role: args.role,
+                        badgeNumber: args.badgeNumber,
+                        NMCPin: args.NMCPin,
+                        department: args.department,
                     },
                 });
             },
