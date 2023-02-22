@@ -19,7 +19,7 @@ const ChildType = new graphql_1.GraphQLObjectType({
         birthWeightInKg: { type: graphql_1.GraphQLFloat },
         birthHospital: { type: graphql_1.GraphQLString },
         picture: { type: graphql_1.GraphQLString },
-        birthHeight: { type: graphql_1.GraphQLFloat },
+        birthHeightInCm: { type: graphql_1.GraphQLFloat },
         bloodGroup: { type: graphql_1.GraphQLString },
     }),
 });
@@ -89,12 +89,13 @@ const RootQuery = new graphql_1.GraphQLObjectType({
     fields: {
         getChildByNhsNumber: {
             type: ChildType,
-            args: { nhsNumber: { type: graphql_1.GraphQLID } },
+            args: { nhsNumber: { type: graphql_1.GraphQLString } },
             resolve(parent, args) {
-                return Child.find({ nhsNumber: args.nhsNumber });
+                console.log(Child.find());
+                return Child.find().select({ nhsNumber: args.nhsNumber, _id: 0 });
             },
         },
-        findChildById: {
+        getChildById: {
             type: ChildType,
             args: { id: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLID) } },
             resolve(parent, args) {
@@ -117,7 +118,7 @@ const RootQuery = new graphql_1.GraphQLObjectType({
             type: new graphql_1.GraphQLList(ClinicianType),
             resolve: (parent, args) => Clinician.find(),
         },
-        findClinician: {
+        getClinician: {
             type: new graphql_1.GraphQLList(ClinicianType),
             args: {
                 id: { type: graphql_1.GraphQLString },
@@ -155,7 +156,7 @@ const mutation = new graphql_1.GraphQLObjectType({
                 dateOfBirth: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
                 address: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
                 birthWeightInKg: { type: graphql_1.GraphQLFloat, defaultValue: null },
-                birthHeight: { type: graphql_1.GraphQLFloat, defaultValue: null },
+                birthHeightInCm: { type: graphql_1.GraphQLFloat, defaultValue: null },
                 nhsNumber: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
                 birthHospital: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
                 picture: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString), defaultValue: null },
@@ -167,7 +168,7 @@ const mutation = new graphql_1.GraphQLObjectType({
                     dateOfBirth: args.dateOfBirth,
                     address: args.address,
                     birthWeightInKg: args.birthWeightInKg,
-                    birthHeight: args.birthHeight,
+                    birthHeightInCm: args.birthHeightInCm,
                     nhsNumber: args.nhsNumber,
                     birthHospital: args.birthHospital,
                     picture: args.picture,
@@ -175,16 +176,17 @@ const mutation = new graphql_1.GraphQLObjectType({
                 return child.save();
             },
         },
+        // Update Child Change child's details
         updateChild: {
             type: ChildType,
             args: {
-                id: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLID) },
+                id: { type: graphql_1.GraphQLID },
                 firstName: { type: graphql_1.GraphQLString },
                 lastName: { type: graphql_1.GraphQLString },
                 dateOfBirth: { type: graphql_1.GraphQLString },
                 address: { type: graphql_1.GraphQLString },
                 birthWeightInKg: { type: graphql_1.GraphQLFloat },
-                birthHeight: { type: graphql_1.GraphQLFloat },
+                birthHeightInCm: { type: graphql_1.GraphQLFloat },
                 nhsNumber: { type: graphql_1.GraphQLString },
                 birthHospital: { type: graphql_1.GraphQLString },
                 picture: { type: graphql_1.GraphQLString },
@@ -197,7 +199,7 @@ const mutation = new graphql_1.GraphQLObjectType({
                         dateOfBirth: args.dateOfBirth,
                         address: args.address,
                         birthWeightInKg: args.birthWeightInKg,
-                        birthHeight: args.birthHeight,
+                        birthHeightInCm: args.birthHeightInCm,
                         nhsNumber: args.nhsNumber,
                         birthHospital: args.birthHospital,
                         picture: args.picture,

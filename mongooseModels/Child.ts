@@ -39,6 +39,7 @@ const ChildSchema = new Schema({
   birthWeightInKg: { type: Number },
   birthHeightInCm: { type: Number },
   birthHospital: { type: String, required: false },
+  nhsNumber: { type: String, required: true, unique: true },
   picture: { type: String, required: false },
   bloodGroup: {
     type: String,

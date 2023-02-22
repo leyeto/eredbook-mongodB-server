@@ -11,6 +11,7 @@ import {
   GraphQLBoolean,
   GraphQLFloat,
   GraphQLID,
+  GraphQLInt,
   GraphQLList,
   GraphQLNonNull,
   GraphQLObjectType,
@@ -105,9 +106,10 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     getChildByNhsNumber: {
       type: ChildType,
-      args: { nhsNumber: { type: GraphQLID } },
+      args: { nhsNumber: { type: GraphQLString } },
       resolve(parent, args) {
-        return Child.find({ nhsNumber: args.nhsNumber });
+        console.log(Child.find());
+        return Child.find().select({ nhsNumber: args.nhsNumber, _id: 0 });
       },
     },
     getChildById: {
@@ -192,10 +194,11 @@ const mutation = new GraphQLObjectType({
         return child.save();
       },
     },
+    // Update Child Change child's details
     updateChild: {
       type: ChildType,
       args: {
-        id: { type: GraphQLNonNull(GraphQLID) },
+        id: { type: GraphQLID },
         firstName: { type: GraphQLString },
         lastName: { type: GraphQLString },
         dateOfBirth: { type: GraphQLString },
