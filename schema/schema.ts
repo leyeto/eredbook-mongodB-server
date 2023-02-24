@@ -11,7 +11,6 @@ import {
   GraphQLBoolean,
   GraphQLFloat,
   GraphQLID,
-  GraphQLInt,
   GraphQLList,
   GraphQLNonNull,
   GraphQLObjectType,
@@ -106,10 +105,9 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     getChildByNhsNumber: {
       type: ChildType,
-      args: { nhsNumber: { type: GraphQLString } },
+      args: { nhsNumber: { type: GraphQLNonNull(GraphQLString) } },
       resolve(parent, args) {
-        console.log(Child.find());
-        return Child.find().select({ nhsNumber: args.nhsNumber, _id: 0 });
+        return Child.find({ nhsNumber: args.nhsNumber });
       },
     },
     getChildById: {
