@@ -135,6 +135,10 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(ClinicianType),
       resolve: (parent, args) => Clinician.find(),
     },
+    getActiveClinicians: {
+      type: new GraphQLList(ClinicianType),
+      resolve: (parent, args) => Clinician.find({ isActive: true }),
+    },
     getClinician: {
       type: new GraphQLList(ClinicianType),
       args: {

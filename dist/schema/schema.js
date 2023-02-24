@@ -274,7 +274,7 @@ const mutation = new graphql_1.GraphQLObjectType({
                 });
             },
         },
-        editClinician: {
+        updateClinician: {
             type: ClinicianType,
             args: {
                 id: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
@@ -301,7 +301,7 @@ const mutation = new graphql_1.GraphQLObjectType({
                         NMCPin: args.NMCPin,
                         department: args.department,
                     },
-                });
+                }, console.log("Update returns old data instead of new data, state might be used to fix this on the frontend"));
             },
         },
     }),
