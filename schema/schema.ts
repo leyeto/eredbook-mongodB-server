@@ -28,7 +28,7 @@ const RootQuery = new GraphQLObjectType({
       type: ChildType,
       args: { nhsNumber: { type: GraphQLNonNull(GraphQLString) } },
       resolve(parent, args) {
-        return Child.find({ nhsNumber: args.nhsNumber });
+        return Child.findOne({ nhsNumber: args.nhsNumber });
       },
     },
     getChildById: {
@@ -72,13 +72,13 @@ const RootQuery = new GraphQLObjectType({
           return Clinician.findById(args.id);
         }
         if (args.username) {
-          return Clinician.findOne({ username: args.username }).exec();
+          return Clinician.findOne({ username: args.username });
         }
         if (args.badgeNumber) {
-          return Clinician.findOne({ badgeNumber: args.badgeNumber }).exec();
+          return Clinician.findOne({ badgeNumber: args.badgeNumber });
         }
         if (args.NMCPin) {
-          return Clinician.findOne({ NMCPin: args.NMCPin }).exec();
+          return Clinician.findOne({ NMCPin: args.NMCPin });
         }
       },
     },
