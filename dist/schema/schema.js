@@ -89,10 +89,9 @@ const RootQuery = new graphql_1.GraphQLObjectType({
     fields: {
         getChildByNhsNumber: {
             type: ChildType,
-            args: { nhsNumber: { type: graphql_1.GraphQLString } },
+            args: { nhsNumber: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) } },
             resolve(parent, args) {
-                console.log(Child.find());
-                return Child.find().select({ nhsNumber: args.nhsNumber, _id: 0 });
+                return Child.find({ nhsNumber: args.nhsNumber });
             },
         },
         getChildById: {
@@ -117,6 +116,10 @@ const RootQuery = new graphql_1.GraphQLObjectType({
         getClinicians: {
             type: new graphql_1.GraphQLList(ClinicianType),
             resolve: (parent, args) => Clinician.find(),
+        },
+        getActiveClinicians: {
+            type: new graphql_1.GraphQLList(ClinicianType),
+            resolve: (parent, args) => Clinician.find({ isActive: true }),
         },
         getClinician: {
             type: new graphql_1.GraphQLList(ClinicianType),
