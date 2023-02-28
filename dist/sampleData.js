@@ -9,7 +9,9 @@ exports.children = [
         dateOfBirth: new Date(2020, 11, 24),
         address: "89 Chillded Street",
         nhsNumber: "739 4794 475",
-        birthWeightInKg: 7.4,
+        birthWeightInKg: 3.4,
+        birthHospital: "St Patrick",
+        birthHeightInCm: 1.4,
     },
     {
         id: "child2",
@@ -18,7 +20,9 @@ exports.children = [
         dateOfBirth: new Date(2019, 3, 14),
         address: "89 Chillded Street",
         nhsNumber: "739 4794 734",
-        birthWeightInKg: 7.4,
+        birthWeightInKg: 4.4,
+        birthHospital: "St Patrick",
+        birthHeightInCm: 1.4,
     },
     {
         id: "child3",
@@ -27,7 +31,9 @@ exports.children = [
         dateOfBirth: new Date(2018, 3, 4),
         address: "89 Chillded Street",
         nhsNumber: "739 4794 475",
-        birthWeightInKg: 7.4,
+        birthWeightInKg: 3.6,
+        birthHospital: "St Patrick",
+        birthHeightInCm: 1.4,
     },
 ];
 exports.parents = [

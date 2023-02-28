@@ -1,1 +1,8 @@
 Leye 15/02/2023: Tried changing mongooseModel for ChildSchema to what was on documentation but having difficulty with enums 
+
+Trying to put multiple Graphql Mutations and Queries in one Schema
+resources{
+    apolligraphql:https://www.apollographql.com/blog/backend/schema-design/modularizing-your-graphql-schema-code/,
+    stackoverflow:https://stackoverflow.com/questions/57040429/how-to-split-a-long-graphql-schema
+    youtube:https://www.youtube.com/watch?v=4XmQi80nFes
+}

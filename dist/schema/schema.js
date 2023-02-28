@@ -19,7 +19,7 @@ const ChildType = new graphql_1.GraphQLObjectType({
         birthWeightInKg: { type: graphql_1.GraphQLFloat },
         birthHospital: { type: graphql_1.GraphQLString },
         picture: { type: graphql_1.GraphQLString },
-        birthHeight: { type: graphql_1.GraphQLFloat },
+        birthHeightInCm: { type: graphql_1.GraphQLFloat },
         bloodGroup: { type: graphql_1.GraphQLString },
     }),
 });
@@ -45,7 +45,7 @@ const WeightType = new graphql_1.GraphQLObjectType({
 const ClinicianType = new graphql_1.GraphQLObjectType({
     name: "Clinican",
     fields: () => ({
-        clinicianID: { type: graphql_1.GraphQLID },
+        id: { type: graphql_1.GraphQLID },
         firstName: { type: graphql_1.GraphQLString },
         lastName: { type: graphql_1.GraphQLString },
         username: { type: graphql_1.GraphQLString },
@@ -54,6 +54,7 @@ const ClinicianType = new graphql_1.GraphQLObjectType({
         badgeNumber: { type: graphql_1.GraphQLString },
         NMCPin: { type: graphql_1.GraphQLString },
         department: { type: graphql_1.GraphQLString },
+        isActive: { type: graphql_1.GraphQLBoolean },
     }),
 });
 // ParentType
@@ -88,16 +89,16 @@ const RootQuery = new graphql_1.GraphQLObjectType({
     fields: {
         getChildByNhsNumber: {
             type: ChildType,
-            args: { nhsNumber: { type: graphql_1.GraphQLID } },
+            args: { nhsNumber: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) } },
             resolve(parent, args) {
-                return Child.findbyId(args.nhsNumber);
+                return Child.find({ nhsNumber: args.nhsNumber });
             },
         },
-        child: {
+        getChildById: {
             type: ChildType,
-            args: { id: { type: graphql_1.GraphQLID } },
+            args: { id: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLID) } },
             resolve(parent, args) {
-                return Child.findbyId(args.id);
+                return Child.findById(args.id);
             },
         },
         getChildren: {
@@ -110,6 +111,37 @@ const RootQuery = new graphql_1.GraphQLObjectType({
             type: new graphql_1.GraphQLList(WeightType),
             resolve(parent, args) {
                 return Weight.find();
+            },
+        },
+        getClinicians: {
+            type: new graphql_1.GraphQLList(ClinicianType),
+            resolve: (parent, args) => Clinician.find(),
+        },
+        getActiveClinicians: {
+            type: new graphql_1.GraphQLList(ClinicianType),
+            resolve: (parent, args) => Clinician.find({ isActive: true }),
+        },
+        getClinician: {
+            type: new graphql_1.GraphQLList(ClinicianType),
+            args: {
+                id: { type: graphql_1.GraphQLString },
+                username: { type: graphql_1.GraphQLString },
+                badgeNumber: { type: graphql_1.GraphQLString },
+                NMCPin: { type: graphql_1.GraphQLString },
+            },
+            resolve: (_parent, args) => {
+                if (args.id) {
+                    return Clinician.findById(args.id);
+                }
+                if (args.username) {
+                    return Clinician.findOne({ username: args.username }).exec();
+                }
+                if (args.badgeNumber) {
+                    return Clinician.findOne({ badgeNumber: args.badgeNumber }).exec();
+                }
+                if (args.NMCPin) {
+                    return Clinician.findOne({ NMCPin: args.NMCPin }).exec();
+                }
             },
         },
     },
@@ -127,7 +159,7 @@ const mutation = new graphql_1.GraphQLObjectType({
                 dateOfBirth: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
                 address: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
                 birthWeightInKg: { type: graphql_1.GraphQLFloat, defaultValue: null },
-                birthHeight: { type: graphql_1.GraphQLFloat, defaultValue: null },
+                birthHeightInCm: { type: graphql_1.GraphQLFloat, defaultValue: null },
                 nhsNumber: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
                 birthHospital: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
                 picture: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString), defaultValue: null },
@@ -139,7 +171,7 @@ const mutation = new graphql_1.GraphQLObjectType({
                     dateOfBirth: args.dateOfBirth,
                     address: args.address,
                     birthWeightInKg: args.birthWeightInKg,
-                    birthHeight: args.birthHeight,
+                    birthHeightInCm: args.birthHeightInCm,
                     nhsNumber: args.nhsNumber,
                     birthHospital: args.birthHospital,
                     picture: args.picture,
@@ -147,16 +179,17 @@ const mutation = new graphql_1.GraphQLObjectType({
                 return child.save();
             },
         },
+        // Update Child Change child's details
         updateChild: {
             type: ChildType,
             args: {
-                id: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLID) },
+                id: { type: graphql_1.GraphQLID },
                 firstName: { type: graphql_1.GraphQLString },
                 lastName: { type: graphql_1.GraphQLString },
                 dateOfBirth: { type: graphql_1.GraphQLString },
                 address: { type: graphql_1.GraphQLString },
                 birthWeightInKg: { type: graphql_1.GraphQLFloat },
-                birthHeight: { type: graphql_1.GraphQLFloat },
+                birthHeightInCm: { type: graphql_1.GraphQLFloat },
                 nhsNumber: { type: graphql_1.GraphQLString },
                 birthHospital: { type: graphql_1.GraphQLString },
                 picture: { type: graphql_1.GraphQLString },
@@ -169,7 +202,7 @@ const mutation = new graphql_1.GraphQLObjectType({
                         dateOfBirth: args.dateOfBirth,
                         address: args.address,
                         birthWeightInKg: args.birthWeightInKg,
-                        birthHeight: args.birthHeight,
+                        birthHeightInCm: args.birthHeightInCm,
                         nhsNumber: args.nhsNumber,
                         birthHospital: args.birthHospital,
                         picture: args.picture,
@@ -184,6 +217,94 @@ const mutation = new graphql_1.GraphQLObjectType({
             },
             resolve(parent, args) {
                 return Child.findByIdAndRemove(args.id);
+            },
+        },
+        // Clinician Mutations
+        addClinician: {
+            type: ClinicianType,
+            args: {
+                firstName: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
+                lastName: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
+                dateOfBirth: { type: graphql_1.GraphQLString },
+                username: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
+                password: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
+                role: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
+                badgeNumber: { type: graphql_1.GraphQLString },
+                NMCPin: { type: graphql_1.GraphQLString },
+                department: { type: graphql_1.GraphQLString },
+                isActive: { type: graphql_1.GraphQLBoolean, defaultValue: true },
+            },
+            resolve: (_parent, args) => {
+                const clinician = new Clinician({
+                    firstName: args.firstName,
+                    lastName: args.lastName,
+                    dateOfBirth: args.dateOfBirth,
+                    username: args.username,
+                    password: args.password,
+                    role: args.role,
+                    badgeNumber: args.badgeNumber,
+                    NMCPin: args.NMCPin,
+                    department: args.department,
+                    isActive: args.isAcive,
+                });
+                return clinician.save();
+            },
+        },
+        // Deactivate Clinican
+        deactivateClinician: {
+            type: ClinicianType,
+            args: {
+                id: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
+            },
+            resolve: (_parent, args) => {
+                return Clinician.findByIdAndUpdate(args.id, {
+                    $set: {
+                        isActive: false,
+                    },
+                });
+            },
+        },
+        activateClinician: {
+            type: ClinicianType,
+            args: {
+                id: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
+            },
+            resolve: (_parent, args) => {
+                return Clinician.findByIdAndUpdate(args.id, {
+                    $set: {
+                        isActive: true,
+                    },
+                });
+            },
+        },
+        updateClinician: {
+            type: ClinicianType,
+            args: {
+                id: { type: (0, graphql_1.GraphQLNonNull)(graphql_1.GraphQLString) },
+                firstName: { type: graphql_1.GraphQLString },
+                lastName: { type: graphql_1.GraphQLString },
+                dateOfBirth: { type: graphql_1.GraphQLString },
+                username: { type: graphql_1.GraphQLString },
+                password: { type: graphql_1.GraphQLString },
+                role: { type: graphql_1.GraphQLString },
+                badgeNumber: { type: graphql_1.GraphQLString },
+                NMCPin: { type: graphql_1.GraphQLString },
+                department: { type: graphql_1.GraphQLString },
+            },
+            resolve: (_parent, args) => {
+                return Clinician.findByIdAndUpdate(args.id, {
+                    $set: {
+                        firstName: args.firstName,
+                        lastName: args.lastName,
+                        dateOfBirth: args.dateOfBirth,
+                        username: args.username,
+                        password: args.lastName,
+                        role: args.role,
+                        badgeNumber: args.badgeNumber,
+                        NMCPin: args.NMCPin,
+                        department: args.department,
+                    },
+                }, console.log("Update returns old data instead of new data, state might be used to fix this on the frontend"));
             },
         },
     }),

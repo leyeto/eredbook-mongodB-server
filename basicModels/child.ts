@@ -11,6 +11,6 @@ export type Child = Person & {
   birthWeightInKg?: number | null;
   birthHospital?: String | null;
   picture?: String;
-  birthHeight?: number | null;
+  birthHeightInCm?: number | null;
   bloodGroup?: "A+" | "A-" | "B+" | "B-" | "O+" | "O-" | "AB+" | "AB-";
 };
