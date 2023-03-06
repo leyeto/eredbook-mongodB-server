@@ -82,6 +82,16 @@ const RootQuery = new GraphQLObjectType({
         }
       },
     },
+    getChildNotes: {
+      type: new GraphQLList(Note),
+      args: {
+        id: { type: GraphQLNonNull(GraphQLID) },
+        nhsNumber: { type: GraphQLString },
+      },
+      resolve: (parent, args) => {
+        return Note.find;
+      },
+    },
   },
 });
 
