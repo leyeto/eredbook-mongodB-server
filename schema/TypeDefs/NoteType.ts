@@ -13,6 +13,6 @@ export const NotesType = new GraphQLObjectType({
     dateOfEntry: { type: GraphQLString },
     comment: { type: GraphQLString },
     nameAndDesignation: { type: GraphQLString },
-    clinicianBadgeNumber: { type: GraphQLString },
+    // clinicianBadgeNumber: { type: GraphQLString },
   }),
 });

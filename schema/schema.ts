@@ -20,6 +20,7 @@ import {
 import ChildType from "./TypeDefs/ChildType";
 import WeightType from "./TypeDefs/WeightType";
 import ClinicianType from "./TypeDefs/ClinicianType";
+import { NotesType } from "./TypeDefs/NoteType";
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
@@ -230,6 +231,7 @@ const mutation = new GraphQLObjectType({
         });
       },
     },
+    // Change Clinician details
     updateClinician: {
       type: ClinicianType,
       args: {
@@ -264,6 +266,25 @@ const mutation = new GraphQLObjectType({
             "Update returns old data instead of new data, state might be used to fix this on the frontend"
           )
         );
+      },
+    },
+    //NOTES MUTATIONS
+    addNote: {
+      type: NotesType,
+      args: {
+        clinicianId: { type: GraphQLNonNull(GraphQLID) },
+        clildId: { type: GraphQLNonNull(GraphQLID) },
+        comment: { type: GraphQLNonNull(GraphQLString) },
+      },
+      resolve: (parent, args) => {
+        const clinician = Clinician.findById(args.clinicianId);
+        const clinicianName = clinician.firstName + " " + clinician.lastName;
+        const clinicianRole = clinician.role;
+        const note = new Note({
+          dateOfEntry: Date.now(),
+          comment: args.comment,
+          nameAndDesignation: clinicianName + " " + clinicianRole,
+        });
       },
     },
   }),
